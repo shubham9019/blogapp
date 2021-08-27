@@ -1,6 +1,9 @@
 import React from "react";
 
 const Post = ({ title, content, editPost, id, deletePost, likePost }) => {
+
+  
+
   return (
     <>
       <section className="post-container">

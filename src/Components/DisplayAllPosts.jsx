@@ -31,6 +31,8 @@ const DisplayAllPosts = () => {
   };
 
 
+
+
   const likePost = (id) => {
     
   };
@@ -80,6 +82,7 @@ const DisplayAllPosts = () => {
     console.log(allPosts);
     setTitle("");
     setContent("");
+    
     getTitle.current.value = "";
     getContent.current.value = "";
     toggleCreateNewPost();
