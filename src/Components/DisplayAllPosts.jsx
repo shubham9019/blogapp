@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import CreateNewPost from "./CreateNewPost";
 import Post from "./Post";
 import ModifyPost from "./ModifyPost";
@@ -16,12 +16,16 @@ const DisplayAllPosts = () => {
 
   const getTitle = useRef();
   const getContent = useRef();
+  const getLikes = useRef();
 
   const savePostTitleToState = (event) => {
     setTitle(event.target.value);
   };
   const savePostContentToState = (event) => {
     setContent(event.target.value);
+  };
+  const savePostLikesToState = (event) => {
+    setLikes(event.target.value);
   };
   const toggleCreateNewPost = () => {
     setIsCreateNewPost(!isCreateNewPost);
@@ -33,9 +37,38 @@ const DisplayAllPosts = () => {
 
 
 
-  const likePost = (id) => {
+  useEffect(() => {
+    const localBlog = localStorage.getItem("allPosts");
+    if(localBlog){
+      setAllPosts(JSON.parse(localBlog));
+    }
     
-  };
+  }, [])
+  useEffect(() => {
+    localStorage.setItem("allPosts", JSON.stringify(allPosts))
+    
+  }, [allPosts])
+
+
+  const likePost = (event) => {
+    const updatedPost = allPosts.map((eachPost) => {
+      if (eachPost.id === event) {
+        console.log([eachPost.id, event]);
+        console.log("dsda")
+        setLikes(likes+1);
+        return {
+          ...eachPost,
+          title: title || eachPost.title,
+          content: content || eachPost.content,
+          likes: likes || eachPost.likes,
+        };
+      }
+      console.log(eachPost);
+      return eachPost;
+    });
+    setAllPosts(updatedPost);
+  }
+      
 
 
   const editPost = (id) => {
@@ -78,13 +111,16 @@ const DisplayAllPosts = () => {
   const savePost = (event) => {
     event.preventDefault();
     const id = Date.now();
-    setAllPosts([...allPosts, { title, content, id }]);
+    setAllPosts([...allPosts, { title, content, id, likes}]);
     console.log(allPosts);
     setTitle("");
     setContent("");
+    setLikes(0);
     
     getTitle.current.value = "";
     getContent.current.value = "";
+    
+    
     toggleCreateNewPost();
   };
 
@@ -96,10 +132,13 @@ const DisplayAllPosts = () => {
         <CreateNewPost
           savePostTitleToState={savePostTitleToState}
           savePostContentToState={savePostContentToState}
+          savePostLikesToState={savePostLikesToState}
+          
           getTitle={getTitle}
           getContent={getContent}
           savePost={savePost}
           deletePost={deletePost}
+          getLikes={getLikes}
         />
       </>
     );
@@ -114,6 +153,7 @@ const DisplayAllPosts = () => {
         updatePost={updatePost}
         savePostTitleToState={savePostTitleToState}
         savePostContentToState={savePostContentToState}
+        savePostLikesToState={savePostLikesToState}
       />
     );
   }
@@ -148,6 +188,7 @@ const DisplayAllPosts = () => {
                   editPost={editPost}
                   deletePost={deletePost}
                   likePost={likePost}
+                  likes={eachPost.likes}
                 />
               );
             })}

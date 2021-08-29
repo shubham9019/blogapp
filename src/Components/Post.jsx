@@ -1,6 +1,6 @@
 import React from "react";
 
-const Post = ({ title, content, editPost, id, deletePost, likePost }) => {
+const Post = ({ title, content, editPost, id, deletePost, likePost, likes }) => {
 
   
 
@@ -17,8 +17,10 @@ const Post = ({ title, content, editPost, id, deletePost, likePost }) => {
             Delete
           </button>
           <button className="button" onClick={() => likePost(id)}>
-            Like
+          Like 
+          <i class="fas fa-thumbs-up"></i>
           </button>
+          <h1>{likes}</h1>
         </div>
       </section>
     </>
