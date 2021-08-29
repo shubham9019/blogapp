@@ -54,7 +54,7 @@ const DisplayAllPosts = () => {
     const updatedPost = allPosts.map((eachPost) => {
       if (eachPost.id === event) {
         console.log([eachPost.id, event]);
-        console.log("dsda")
+        
         setLikes(likes+1);
         return {
           ...eachPost,
