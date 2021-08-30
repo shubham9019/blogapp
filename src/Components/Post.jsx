@@ -20,7 +20,7 @@ const Post = ({ title, content, editPost, id, deletePost, likePost, likes }) => 
           Like 
           <i class="fas fa-thumbs-up"></i>
           </button>
-          <h1>{likes}</h1>
+          <label><strong>{likes}</strong></label>
         </div>
       </section>
     </>
