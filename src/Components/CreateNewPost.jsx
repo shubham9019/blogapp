@@ -27,7 +27,7 @@ const CreateNewPost = (props) => {
           <br />
           <br />
           <section className="button-wrapper">
-            <button className="button">Save Post fast</button>
+            <button className="button">dank</button>
           </section>
         </form>
       </section>
